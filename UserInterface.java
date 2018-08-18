@@ -28,37 +28,42 @@ public class UserInterface extends abc{
 		String projectId = sc.nextLine();
 		System.out.println("Enter project Name:");			
 		String projectName = sc.nextLine();
-		System.out.println("Enter Start Date:");
-		String startDate = sc.nextLine();
-		System.out.println("Enter Expected finish time:");	
-		String timePeriod = sc.nextLine();
-		// System.out.println("Enter Number of employees required:");
-		// int numberOfEmployee = sc.nextInt();
-		// sc.nextLine();
 		System.out.println("Enter roles (separated by commas):");
 		String[] roles = sc.nextLine().split(",");
 		
-		int[] numPerRoles = new int[roles.length];
-
+		//int[] numPerRoles = new int[roles.length];
+		String[] certificates = new String[100];
 		for(int i = 0; i<roles.length;i++)
 		{
-
+			int count = 0;
 			System.out.println("How many employees requred for role "+roles[i]);
-			numPerRoles[i] = sc.nextInt();
+			int numPerRoles = sc.nextInt();
 			sc.nextLine();
-
-		}
-
-		System.out.println("Enter certificates required(Comma separated)");
-		String[] certificates = sc.nextLine().split(",");
+			System.out.println("Enter certificates required(Comma separated)");
+			certificates = sc.nextLine().split(",");
 		
-		ArrayList<Employee> employeesWithCertificates = rm.searchEmployeeByCertifications(certificates);
+			ArrayList<Employee> employeesWithCertificates = rm.searchEmployeeWithoutProject(certificates);
+			System.out.println("Employee(s) added");
+			for(Employee e : employeesWithCertificates){
+				
 
-		for(Employee e : employeesWithCertificates){
-			System.out.println(e.toString());
+				if(e.projectId == null)
+				{
+					e.projectId = projectId;
+					count++;
+					System.out.println(e.toString());
+				}
+			
+				if(count == numPerRoles){break;}
+			}
+
+			System.out.println("Total added "+count);
+			System.out.println("Employees Remain "+(numPerRoles-count));
+
 		}
 
-		Project project = new Project(projectId,projectName,startDate,timePeriod,roles,certificates);
+
+		Project project = new Project(projectId,projectName,roles,certificates);
 		return project;
 	}
 

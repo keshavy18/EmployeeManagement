@@ -11,7 +11,7 @@ class Project{
 	Employee[] employee;
 
  	///////////////Constructors////////////////////////
-	public Project(String projectId,String projectName,String startDate,String timePeriod, String[] roles, String[] certificates)
+	public Project(String projectId,String projectName, String[] roles, String[] certificates)
 	{
 		this.projectId =projectId;
 		this.projectName =projectName;

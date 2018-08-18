@@ -6,7 +6,7 @@ class Employee
 	String[] certificates;
 	String experience;
 	String projectId;
-	Project project;
+	//Project project;
 
 	public Employee(String name,String id,String domainSpeciality,String[] certificates,String experience)
 	{
@@ -26,6 +26,10 @@ class Employee
 		certificatesList += "\t"+projectId;
 		return certificatesList;
 	}
+
+	// public void getProject(){
+	// 	System.out.println(this.project.toString());
+	// }
 
 	
 }

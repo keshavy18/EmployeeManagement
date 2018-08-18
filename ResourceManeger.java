@@ -110,6 +110,49 @@ public class ResourceManeger implements Basic
 		return employeeWithCertification;
 	}
 
+
+
+	public ArrayList<Employee> searchEmployeeWithoutProject(String[] certificationsReqiured){
+		ArrayList<Employee> employeeWithCertification = new ArrayList<Employee>();
+		
+		for(Employee e: employeeList)
+		{
+
+			if(e.projectId == null)	{
+			int count = 0;
+			for(int i=0;i<certificationsReqiured.length;i++)
+			{
+				String[] certificationsGathered = e.certificates;
+				for(int j = 0;j<certificationsGathered.length;j++)
+				{
+					
+					if(certificationsReqiured[i].equals(certificationsGathered[j]))
+					{
+						count++;
+					}
+
+				}
+			}	
+		
+			if(count == certificationsReqiured.length)
+			{
+				
+				employeeWithCertification.add(e);
+			}
+
+		}
+
+
+
+		}
+		
+		return employeeWithCertification;
+	}
+
+
+
+
+
 	public Employee searchByEmployeeId(String Id){
 		
 
