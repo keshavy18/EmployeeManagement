@@ -9,13 +9,13 @@
 
 import java.util.*;
 public class abc implements Basic{
-
+ 	static ResourceManeger rm = new ResourceManeger();
 	
 	public static void main(String[] args) {
 
 		System.out.println("Welcome!");
 		//Scanner sc = new Scanner(System.in);
-		ResourceManeger rm = new ResourceManeger();
+		
 
 		while(true)
 		{

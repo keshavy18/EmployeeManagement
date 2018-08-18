@@ -90,7 +90,7 @@ public class ResourceManeger implements Basic
 				String[] certificationsGathered = e.certificates;
 				for(int j = 0;j<certificationsGathered.length;j++)
 				{
-					// System.out.println(e.toString());
+					
 					if(certificationsReqiured[i].equals(certificationsGathered[j]))
 					{
 						count++;
@@ -101,7 +101,7 @@ public class ResourceManeger implements Basic
 		
 			if(count == certificationsReqiured.length)
 			{
-				//System.out.println(e.toString());
+				
 				employeeWithCertification.add(e);
 			}
 

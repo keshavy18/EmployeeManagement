@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class UserInterface{
+public class UserInterface extends abc{
 	public static Employee newEmployee()
 	{
 		Scanner sc = new Scanner(System.in); 
@@ -49,11 +49,14 @@ public class UserInterface{
 
 		}
 
-		System.out.println("Enter certificates required");
+		System.out.println("Enter certificates required(Comma separated)");
 		String[] certificates = sc.nextLine().split(",");
 		
+		ArrayList<Employee> employeesWithCertificates = rm.searchEmployeeByCertifications(certificates);
 
-
+		for(Employee e : employeesWithCertificates){
+			System.out.println(e.toString());
+		}
 
 		Project project = new Project(projectId,projectName,startDate,timePeriod,roles,certificates);
 		return project;
