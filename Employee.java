@@ -22,6 +22,15 @@ class Employee
 		
 	}
 
+	public void appendCertificateArray(String certi)
+	{
+		String[] certificate = new String[(certificates.length+1)];
+		for(int i=0;i<certificates.length;i++)
+			certificate[i] = certificates[i];
+		certificate[certificates.length] = certi;
+		certificates = certificate;
+	}
+
 	@Override
 	public String toString(){
 		String certificatesList = ""+id+"\t"+name+"\t"+domainSpeciality+"\t";

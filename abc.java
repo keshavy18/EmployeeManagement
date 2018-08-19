@@ -31,6 +31,7 @@ public class abc implements Basic{
 			System.out.println("6. Search by certifications");
 			System.out.println("7. Add Employee to Project");
 			System.out.println("8. Add Certification to Employee Id");
+			System.out.println("9. Complete certifications");
 			Scanner sc = new Scanner(System.in);
 			int choice = sc.nextInt();
 			sc.nextLine();
@@ -92,7 +93,12 @@ public class abc implements Basic{
 
 						System.out.println("Enter Employee id");
 						Employee searById = rm.searchByEmployeeId(sc.nextLine());
-						System.out.println(searById.onGoingCertifications.get(0));
+						
+
+						for(int i =0;i<searById.onGoingCertifications.size();i++){
+							searById.appendCertificateArray(searById.onGoingCertifications.get(i));
+						}
+						searById.onGoingCertifications.clear();
 
 						break;
 				default:
