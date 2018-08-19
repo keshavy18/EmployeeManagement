@@ -30,18 +30,23 @@ public class UserInterface extends abc{
 		String projectName = sc.nextLine();
 		System.out.println("Enter roles (separated by commas):");
 		String[] roles = sc.nextLine().split(",");
-		
-		//int[] numPerRoles = new int[roles.length];
+		ArrayList<Employee> employeesAddedToProject = new ArrayList<Employee>();
+		int countNumOfEmployeesRequired = 0;
+		Map<String,Integer> mapOfCertificationsToUnavailable = new HashMap<String,Integer>();
+		Map<String,Integer> mapOfCertificationsToAvailable = new HashMap<String,Integer>();
 		String[] certificates = new String[100];
 		for(int i = 0; i<roles.length;i++)
 		{
 			int count = 0;
+			
 			System.out.println("How many employees requred for role "+roles[i]);
 			int numPerRoles = sc.nextInt();
 			sc.nextLine();
 			System.out.println("Enter certificates required(Comma separated)");
 			certificates = sc.nextLine().split(",");
-		
+			
+			countNumOfEmployeesRequired +=numPerRoles; 
+			
 			ArrayList<Employee> employeesWithCertificates = rm.searchEmployeeWithoutProject(certificates);
 			System.out.println("Employee(s) added");
 			for(Employee e : employeesWithCertificates){
@@ -51,6 +56,7 @@ public class UserInterface extends abc{
 				{
 					e.projectId = projectId;
 					count++;
+					employeesAddedToProject.add(e);
 					System.out.println(e.toString());
 				}
 			
@@ -59,11 +65,13 @@ public class UserInterface extends abc{
 
 			System.out.println("Total added "+count);
 			System.out.println("Employees Remain "+(numPerRoles-count));
+			mapOfCertificationsToUnavailable.put(roles[i],(numPerRoles-count));
+			mapOfCertificationsToAvailable.put(roles[i],count);
 
 		}
 
 
-		Project project = new Project(projectId,projectName,roles,certificates);
+		Project project = new Project(projectId,projectName,roles,certificates,employeesAddedToProject,countNumOfEmployeesRequired,mapOfCertificationsToAvailable,mapOfCertificationsToUnavailable);
 		return project;
 	}
 

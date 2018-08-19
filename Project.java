@@ -1,31 +1,36 @@
+import java.util.*;
 class Project{
 	
 	//////////////////Instance Variables//////////////
 	String projectId;
 	String projectName;
-	String startDate;
-	String timePeriod;
+	// String startDate;
+	// String timePeriod;
 	int numberOfEmployee;
 	String[] roles;
 	String[] certificates;
-	Employee[] employee;
+	ArrayList<Employee> employee;
+
+	Map<String,Integer> mapOfCertificationsToAvailable;
+	Map<String,Integer> mapOfCertificationsToUnavailable;
 
  	///////////////Constructors////////////////////////
-	public Project(String projectId,String projectName, String[] roles, String[] certificates)
+	public Project(String projectId,String projectName, String[] roles, String[] certificates,ArrayList<Employee> employee,int numberOfEmployee,Map<String,Integer> mapOfCertificationsToAvailable,Map<String,Integer> mapOfCertificationsToUnavailable)
 	{
 		this.projectId =projectId;
 		this.projectName =projectName;
-		this.startDate =startDate;
-		this.timePeriod =timePeriod;
 		this.numberOfEmployee =numberOfEmployee;
 		this.roles =roles;
 		this.certificates =certificates;
+		this.employee = employee;
+		this.mapOfCertificationsToAvailable=mapOfCertificationsToAvailable;
+		this.mapOfCertificationsToUnavailable=mapOfCertificationsToUnavailable;
 	}
 
 
 	@Override
 	public String toString(){
-		String certificatesList = ""+projectId+"\t"+projectName+"\t"+startDate+"\t"+timePeriod+"\t"+numberOfEmployee+"\t";
+		String certificatesList = ""+projectId+"\t"+projectName+"\t"+numberOfEmployee+"\t"+employee+"\t";
 
 		for(int i= 0; i<roles.length;i++){
 			certificatesList += roles[i]+",";

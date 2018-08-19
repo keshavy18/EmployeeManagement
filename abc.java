@@ -32,6 +32,7 @@ public class abc implements Basic{
 			System.out.println("7. Add Employee to Project");
 			System.out.println("8. Add Certification to Employee Id");
 			System.out.println("9. Complete certifications");
+			System.out.println("11. Complete Project");
 			Scanner sc = new Scanner(System.in);
 			int choice = sc.nextInt();
 			sc.nextLine();
@@ -75,8 +76,22 @@ public class abc implements Basic{
 						System.out.println("Enter the project Id");
 						String projectId = sc.nextLine();
 						System.out.println("Enter the Employee Id");
+
 						Employee searchEmployeeById = rm.searchByEmployeeId(sc.nextLine());
+						
+						Project p = rm.searchProjectById(projectId);
+
+						System.out.println("Enter the Certifications Required");
+
+
+						Map<String,Integer> unavailableEmployees =p.mapOfCertificationsToUnavailable;
+
+
 						searchEmployeeById.projectId = projectId;
+
+						p.employee.add(searchEmployeeById);
+
+
 						break;
 				case 8:
 						System.out.println("Enter Employee id");

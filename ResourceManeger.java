@@ -188,4 +188,19 @@ public class ResourceManeger implements Basic
 	}
 
 
+	public Project searchProjectById(String PId){
+
+		for(Project p:projectList){
+			if(p.projectId.equals(PId)){
+				return p;
+			}
+		}
+
+		return null;
+	}
+
+
+
+
+
 }
