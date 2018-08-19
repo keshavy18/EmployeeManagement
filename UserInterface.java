@@ -37,29 +37,32 @@ public class UserInterface extends abc{
 		{
 			int count = 0;
 			System.out.println("How many employees requred for role "+roles[i]);
-			int numPerRoles = sc.nextInt();
-			sc.nextLine();
-			System.out.println("Enter certificates required(Comma separated)");
-			certificates = sc.nextLine().split(",");
-		
-			ArrayList<Employee> employeesWithCertificates = rm.searchEmployeeWithoutProject(certificates);
-			System.out.println("Employee(s) added");
-			for(Employee e : employeesWithCertificates){
-				
-
-				if(e.projectId == null)
-				{
-					e.projectId = projectId;
-					count++;
-					System.out.println(e.toString());
-				}
+			try
+			{
+				int numPerRoles = sc.nextInt();
+				sc.nextLine();
+				System.out.println("Enter certificates required(Comma separated)");
+				certificates = sc.nextLine().split(",");
 			
-				if(count == numPerRoles){break;}
+				ArrayList<Employee> employeesWithCertificates = rm.searchEmployeeWithoutProject(certificates);
+				System.out.println("Employee(s) added");
+				for(Employee e : employeesWithCertificates){		
+					if(e.projectId == null)
+					{
+						e.projectId = projectId;
+						count++;
+						System.out.println(e.toString());
+					}
+					if(count == numPerRoles){break;}
+				}
+				System.out.println("Total added "+count);
+				System.out.println("Employees Remain "+(numPerRoles-count));
 			}
-
-			System.out.println("Total added "+count);
-			System.out.println("Employees Remain "+(numPerRoles-count));
-
+			catch(InputMismatchException e){
+				System.out.println("No of employees must be Integer");
+				i--;
+				sc.nextLine();
+			}
 		}
 
 
