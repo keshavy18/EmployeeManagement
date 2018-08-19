@@ -1,10 +1,12 @@
+import java.util.*;
+
 class Employee
 {
 	String id;
 	String name;
 	String domainSpeciality;
 	String[] certificates;
-	String[] onGoingCertifications;
+	ArrayList<String> onGoingCertifications;
 	String experience;
 	String projectId;
 	//Project project;
@@ -16,6 +18,7 @@ class Employee
 		this.domainSpeciality = domainSpeciality;
 		this.certificates = certificates;
 		this.experience = experience;
+		this.onGoingCertifications = new ArrayList<String>();
 		
 	}
 

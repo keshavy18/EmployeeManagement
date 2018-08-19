@@ -30,7 +30,7 @@ public class abc implements Basic{
 			System.out.println("5. Search Employee by Id");
 			System.out.println("6. Search by certifications");
 			System.out.println("7. Add Employee to Project");
-			System.out.println("8. Add Certification to Employee Id")
+			System.out.println("8. Add Certification to Employee Id");
 			Scanner sc = new Scanner(System.in);
 			int choice = sc.nextInt();
 			sc.nextLine();
@@ -77,8 +77,24 @@ public class abc implements Basic{
 						Employee searchEmployeeById = rm.searchByEmployeeId(sc.nextLine());
 						searchEmployeeById.projectId = projectId;
 						break;
-				
+				case 8:
+						System.out.println("Enter Employee id");
 
+						String empId = sc.nextLine();
+
+						System.out.println("Enter Course to be added");
+
+						String course = sc.nextLine();
+						rm.addCertificationToEmployee(empId,course);
+
+						break;
+				case 9:
+
+						System.out.println("Enter Employee id");
+						Employee searById = rm.searchByEmployeeId(sc.nextLine());
+						System.out.println(searById.onGoingCertifications.get(0));
+
+						break;
 				default:
 					System.out.println("Please enter the valid input.");
 					break;

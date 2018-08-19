@@ -164,5 +164,28 @@ public class ResourceManeger implements Basic
 		return null;
 	}
 
+	public void addCertificationToEmployee(String employeeId, String certificate){
+
+		Employee employee = searchByEmployeeId(employeeId);
+
+		if(employee==null){
+			System.out.println("No employee found\n");
+		}
+		
+		else{
+
+			 ArrayList<String> onGoing = employee.onGoingCertifications;
+			
+			//System.out.println(onGoing);
+			onGoing.add(certificate);
+
+			System.out.println(onGoing);
+
+
+		}
+
+
+	}
+
 
 }
