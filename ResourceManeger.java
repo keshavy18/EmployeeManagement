@@ -112,57 +112,108 @@ public class ResourceManeger implements Basic
 
 
 
-	public ArrayList<Employee> searchEmployeeWithoutProject(String[] certificationsReqiured){
+	public ArrayList<Employee> searchEmployeeWithoutProject(String[] certificationsReqiured)
+	{
 		ArrayList<Employee> employeeWithCertification = new ArrayList<Employee>();
-		
 		for(Employee e: employeeList)
 		{
-
-			if(e.projectId == null)	{
-			int count = 0;
-			for(int i=0;i<certificationsReqiured.length;i++)
+			if(e.projectId == null)	
 			{
-				String[] certificationsGathered = e.certificates;
-				for(int j = 0;j<certificationsGathered.length;j++)
+				int count = 0;
+				for(int i=0;i<certificationsReqiured.length;i++)
 				{
-					
-					if(certificationsReqiured[i].equals(certificationsGathered[j]))
+					String[] certificationsGathered = e.certificates;
+					for(int j = 0;j<certificationsGathered.length;j++)
 					{
-						count++;
+						
+						if(certificationsReqiured[i].equals(certificationsGathered[j]))
+						{
+							count++;
+						}
+
 					}
-
-				}
-			}	
-		
-			if(count == certificationsReqiured.length)
-			{
-				
-				employeeWithCertification.add(e);
+				}	
+				if(count == certificationsReqiured.length)
+					employeeWithCertification.add(e);
 			}
-
 		}
-
-
-
-		}
-		
 		return employeeWithCertification;
 	}
 
-
-
-
-
-	public Employee searchByEmployeeId(String Id){
-		
-
+	public Employee searchByEmployeeId(String Id){	
 		for(Employee e : employeeList){
 			if(e.id.equals(Id))
 				return e;
 		}
-
 		return null;
 	}
 
+	// Report generation in pdf!
+	public void generateReport()
+	{
+		System.out.println("******************************Project Report******************************");
+		for(Project project:projectList)
+		{
+			System.out.println("\t\t\t"+project.projectName+"\t\t\t");
+			System.out.println("Project Name: "+project.projectName);
+			System.out.println("Project Id: "+project.projectId);
+			System.out.println("Project StartDate: "+project.startDate);
+			System.out.println("Project Expected Time :"+project.timePeriod);
+			System.out.println("Project Number of Employee :"+project.numberOfEmployee);
+			System.out.println("Employee and Roles");
+			for(String certi:project.certificates)
+			{
+				System.out.println("\t\tCertified Employee for "+certi+":");
+				for(Employee emp:project.employee)
+				{
+					if (emp.certificates.equals(certi))
+					{
+						System.out.println("\t\t"+emp.toString());
+					}
+				}
 
+				System.out.println("\t\tTraining Employee for "+certi+":");
+				for(Employee emp:project.employee)
+				{
+					if (emp.onGoingCertifications.equals(certi))
+					{
+						System.out.println("\t\t"+emp.toString());
+					}
+				}
+			}
+		}
+		System.out.println("*************************Certification List*************************");
+		HashMap<String,String[]> innerMap = new HashMap<String,String[]>();
+		// ArrayList<String> certiList = new ArrayList<String>();
+		// ArrayList<String> onGoingCertiList = new ArrayList<String>();
+		for (Employee emp:employeeList ) 
+			{
+			for(String certi:emp.certificates)
+				{
+					if(!innerMap.containsKey(certi))
+					{
+						String[] newarrayList = new String[1];
+						newarrayList[0] = emp.id;
+						innerMap.put(certi,newarrayList);	
+					}
+					else
+					{
+						String[] newarrayList = innerMap.get(certi);
+						String[] newarrayList1 = new String[newarrayList.length+1];
+						for(int i=0;i<newarrayList.length;i++)
+							newarrayList1[i] = newarrayList[i];
+						newarrayList1[newarrayList.length] = emp.id;
+						innerMap.put(certi,newarrayList1);
+					}
+				}
+			}
+
+		for (HashMap.Entry<String, String[]> entry : innerMap.entrySet())
+			{
+			    System.out.println(entry.getKey());
+			    String[] newarrayList = innerMap.get(entry.getKey());
+			    for(String str:newarrayList)
+			    	System.out.println(str);
+			}
+	}
 }
