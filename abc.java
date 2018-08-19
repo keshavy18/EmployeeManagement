@@ -31,9 +31,7 @@ public class abc implements Basic{
 			System.out.println("6. Search by certifications");
 			System.out.println("7. Add Employee to Project");
 			System.out.println("8. Add Certification to Employee Id");
-
 			System.out.println("9. Complete certifications");
-
 			System.out.println("10. Report generation");
 			System.out.println("11. Complete Project");
 
@@ -132,6 +130,29 @@ public class abc implements Basic{
 					case 11:
 							System.out.println("Enter the id of completed project");
 							String projectIdCompleted = sc.nextLine();
+
+							Project projectToDelete = rm.searchProjectById(projectIdCompleted);
+
+							if(projectToDelete == null)
+							{
+								System.out.println("Sorry Can't find the project\n");
+							}
+							else
+							{
+								if(projectToDelete.employee.size()==projectToDelete.numberOfEmployee){
+
+
+									for(Employee eee : projectToDelete.employee){
+										eee.projectId = null;
+									}
+									System.out.println("The Project is completed");
+								}
+								else
+								{
+									System.out.println("The Project is not complete yet");
+								}
+							}
+
 							break;
 
 					default:
