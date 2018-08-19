@@ -4,6 +4,7 @@ class Employee
 	String name;
 	String domainSpeciality;
 	String[] certificates;
+	String[] onGoingCertifications;
 	String experience;
 	String projectId;
 	//Project project;
