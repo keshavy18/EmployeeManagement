@@ -25,6 +25,7 @@ class Project{
 		this.employee = employee;
 		this.mapOfCertificationsToAvailable=mapOfCertificationsToAvailable;
 		this.mapOfCertificationsToUnavailable=mapOfCertificationsToUnavailable;
+		employee = new ArrayList<Employee>();
 	}
 
 

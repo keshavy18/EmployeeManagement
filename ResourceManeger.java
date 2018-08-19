@@ -5,12 +5,13 @@ public class ResourceManeger implements Basic
 	// Instance variables
 	ArrayList<Employee> employeeList;
 	ArrayList<Project> projectList;
-
+	ArrayList<Project> completedProject;
 	// Constructors
 	public ResourceManeger()
 	{
 		employeeList = new ArrayList<Employee>();
 		projectList = new ArrayList<Project>();
+		completedProject = new ArrayList<Project>();
 	}
 
 	// Methods
@@ -193,7 +194,7 @@ public class ResourceManeger implements Basic
 		System.out.println("******************************Project Report******************************");
 		for(Project project:projectList)
 		{
-			System.out.println("\t\t\t"+project.projectName+"\t\t\t");
+			System.out.println(project.projectName);
 			System.out.println("Project Name: "+project.projectName);
 			System.out.println("Project Id: "+project.projectId);
 			// System.out.println("Project StartDate: "+project.startDate);
@@ -202,29 +203,31 @@ public class ResourceManeger implements Basic
 			System.out.println("Employee and Roles");
 			for(String certi:project.certificates)
 			{
-				System.out.println("\t\tCertified Employee for "+certi+":");
+				System.out.println("Certified Employee for "+certi+":");
 				for(Employee emp:project.employee)
 				{
 					if (emp.certificates.equals(certi))
 					{
-						System.out.println("\t\t"+emp.toString());
+						System.out.println(emp.toString());
 					}
 				}
 
-				System.out.println("\t\tTraining Employee for "+certi+":");
+				System.out.println("Training Employee for "+certi+":");
 				for(Employee emp:project.employee)
 				{
 					if (emp.onGoingCertifications.equals(certi))
 					{
-						System.out.println("\t\t"+emp.toString());
+						System.out.println(emp.toString());
 					}
 				}
 			}
 		}
 		System.out.println("*************************Certification List*************************");
 		HashMap<String,String[]> innerMap = new HashMap<String,String[]>();
+		HashMap<String,String[]> outerMap = new HashMap<String,String[]>();
 		// ArrayList<String> certiList = new ArrayList<String>();
 		// ArrayList<String> onGoingCertiList = new ArrayList<String>();
+		System.out.println("Current certificates List:");
 		for (Employee emp:employeeList ) 
 			{
 			for(String certi:emp.certificates)
@@ -250,10 +253,45 @@ public class ResourceManeger implements Basic
 
 		for (HashMap.Entry<String, String[]> entry : innerMap.entrySet())
 			{
-			    System.out.println(entry.getKey());
+			    System.out.print(entry.getKey()+" : ");
 			    String[] newarrayList = innerMap.get(entry.getKey());
 			    for(String str:newarrayList)
-			    	System.out.println(str);
+			    	System.out.print(str+" ");
+			    System.out.println("\n");
 			}
+
+		System.out.println("Current ongoing certificates List:");
+		for (Employee emp:employeeList ) 
+			{
+			for(String certi:emp.onGoingCertifications)
+				{
+					if(!outerMap.containsKey(certi))
+					{
+						String[] newarrayList = new String[1];
+						newarrayList[0] = emp.id;
+						innerMap.put(certi,newarrayList);	
+					}
+					else
+					{
+						String[] newarrayList = innerMap.get(certi);
+						String[] newarrayList1 = new String[newarrayList.length+1];
+						for(int i=0;i<newarrayList.length;i++)
+							newarrayList1[i] = newarrayList[i];
+						newarrayList1[newarrayList.length] = emp.id;
+						innerMap.put(certi,newarrayList1);
+					}
+				}
+			}
+
+
+		for (HashMap.Entry<String, String[]> entry : outerMap.entrySet())
+			{
+			    System.out.print(entry.getKey()+" : ");
+			    String[] newarrayList = innerMap.get(entry.getKey());
+			    for(String str:newarrayList)
+			    	System.out.print(str+" ");
+			    System.out.println("\n");
+			}
+
 	}
 }

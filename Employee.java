@@ -39,10 +39,5 @@ class Employee
 		certificatesList += "\t"+projectId;
 		return certificatesList;
 	}
-
-	// public void getProject(){
-	// 	System.out.println(this.project.toString());
-	// }
-
 	
 }

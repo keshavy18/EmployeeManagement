@@ -15,12 +15,11 @@ public class abc implements Basic{
 
 		System.out.println("Welcome!");
 		//Scanner sc = new Scanner(System.in);
-		
+		int flag = 0;
 
 		while(true)
 		{
 			abc cb = new abc();
-			//cb.clearScreen();
 			System.out.println("Welcome to main menu");
 			System.out.println("Enter your choice:");
 			System.out.println("1. Onboard new Employee");
@@ -34,12 +33,13 @@ public class abc implements Basic{
 			System.out.println("9. Complete certifications");
 			System.out.println("10. Report generation");
 			System.out.println("11. Complete Project");
-
+			System.out.println("12. Exit");
 			Scanner sc = new Scanner(System.in);
 			try
 			{
 				int choice = sc.nextInt();
 				sc.nextLine();
+				cb.clearScreen();
 				switch (choice) 
 				{
 					case 1:
@@ -64,8 +64,15 @@ public class abc implements Basic{
 						break;
 					case 5:
 							System.out.println("Search an Employee by Employee Id");
-							Employee searchedById = rm.searchByEmployeeId(sc.nextLine());
-							System.out.println(searchedById.toString());
+							try
+							{
+								Employee searchedById = rm.searchByEmployeeId(sc.nextLine());
+								System.out.println(searchedById.toString());
+							}
+							catch(Exception e)
+							{
+								System.out.println("Employee Id doesn't exists");
+							}
 							break;
 							//
 					case 6:
@@ -89,15 +96,29 @@ public class abc implements Basic{
 							
 							Project p = rm.searchProjectById(projectId);
 
-							System.out.println("Enter the Certifications Required");
+							if(searchEmployeeById==null){System.out.println("There is no such employee");}
+							else{
+								try{
+								p.employee.add(searchEmployeeById);
+								System.out.println(p.toString());
+								}catch(Exception e){
+									System.out.println("There is no such project");
+								}
+							
+							}
+
+							//*****If you add employees by certifications remove this////
+							
+
+							// System.out.println("Enter the Certifications Required");
+
+							
+							// Map<String,Integer> unavailableEmployees =p.mapOfCertificationsToUnavailable;
 
 
-							Map<String,Integer> unavailableEmployees =p.mapOfCertificationsToUnavailable;
+							// searchEmployeeById.projectId = projectId;
 
-
-							searchEmployeeById.projectId = projectId;
-
-							p.employee.add(searchEmployeeById);
+							// p.employee.add(searchEmployeeById);
 
 
 							break;
@@ -139,13 +160,16 @@ public class abc implements Basic{
 							}
 							else
 							{
-								if(projectToDelete.employee.size()==projectToDelete.numberOfEmployee){
-
-
-									for(Employee eee : projectToDelete.employee){
+								if(projectToDelete.employee.size()==projectToDelete.numberOfEmployee)
+								{
+									for(Employee eee : projectToDelete.employee)
+									{
 										eee.projectId = null;
 									}
 									System.out.println("The Project is completed");
+									rm.completedProject.add(projectToDelete);
+									rm.projectList.remove(projectToDelete);
+									System.out.println(rm.completedProject);
 								}
 								else
 								{
@@ -155,15 +179,21 @@ public class abc implements Basic{
 
 							break;
 
+					case 12:
+						flag = 1;
+						break;
 					default:
 						System.out.println("Please enter the valid input.");
 
 						break;
 				}
+				if (flag==1) {
+					break;
+				}
 			}
 			catch(InputMismatchException e)
 			{
-				System.out.println("Please, enter a valid input from 1 to 8.");
+				System.out.println("Please, enter a valid input from 1 to 12.");
 			}
 		}
 	}
